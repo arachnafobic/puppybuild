@@ -40,6 +40,7 @@ if [ ! -d $APPDIR_PATH/tmp ]; then
   mkdir $APPDIR_PATH/tmp
 fi
 cp -f ../../../scripts/ictm-upupbb-chroot.sh $APPDIR_PATH/tmp/.
+cp -f ../../../customfiles/$BUILD/* $APPDIR_PATH/tmp/.
 
 echo "Setting up and Switching to the chroot for building"
 echo "Running: ./run_woof ./upupbb-19.03.iso ./devx_upupbb_19.03.sfs $APPDIR_PATH"
