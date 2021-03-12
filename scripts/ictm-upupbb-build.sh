@@ -11,9 +11,7 @@ if [ ! -d run_woof ]; then
   git clone https://github.com/puppylinux-woof-CE/run_woof
 fi
 cd run_woof
-if [ ! -f run_woof.conf ]; then
-  cp ../../../customfiles/$BUILD/run_woof.conf .
-fi
+cp -f ../../../customfiles/$BUILD/run_woof.conf .
 if [ ! -f upupbb_19.03.iso ]; then
   echo "Downloading baseimage"
   wget -O upupbb_19.03.iso http://distro.ibiblio.org/puppylinux/puppy-bionic/bionicpup32/bionicpup32-8.0-uefi.iso

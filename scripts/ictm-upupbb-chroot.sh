@@ -23,8 +23,8 @@ fi
 cd ../woof-out_x86_x86_ubuntu_upupbb
 if [ ! -f DISTRO_SPECS.orig ]; then
   mv DISTRO_SPECS DISTRO_SPECS.orig
-  cp ../tmp/DISTRO_SPECS .
 fi
+cp -f ../tmp/DISTRO_SPECS .
 if [ ! -f .0setup.runsuccesfull ]; then
   ./0setup
   touch .0setup.runsuccesfull
@@ -43,11 +43,32 @@ if [ ! -f ../local-repositories/x86/packages-deb-bionic/libedit2_3.1-20170329-1_
   mv libedit2_3.1-20170329-1_i386.deb ../local-repositories/x86/packages-deb-bionic/
   cd ../woof-out_x86_x86_ubuntu_upupbb
 fi
-#if [ ! -f .1download.runsuccesfull ]; then
-#  ./1download
-#  touch .1download.runsuccesfull
-#fi
-#if [ ! -f .2createpackages.runsuccesfull ]; then
-#  ./2createpackages
-#  touch .2createpackages.runsuccesfull
-#fi
+if [ ! -f .1download.runsuccesfull ]; then
+  ./1download
+  touch .1download.runsuccesfull
+fi
+if [ ! -f .2createpackages.runsuccesfull ]; then
+  ./2createpackages -all
+  touch .2createpackages.runsuccesfull
+fi
+
+if [ ! -f support/mk_iso.sh.orig ]; then
+  mv support/mk_iso.sh support/mk_iso.sh.orig
+fi
+cp -f ../tmp/mk_iso.sh support/
+if [ ! -f 3builddistro.backup ]; then
+  mv 3builddistro 3builddistro.backup
+  sed 's+^\techo "Running ../support/mk_iso.sh"+\techo "Running ../support/mk_iso.sh --uefi"+g' 3builddistro.backup > 3builddistro.tmp1
+  sed 's+^\t../support/mk_iso.sh || exit 1+\t../support/mk_iso.sh --uefi || exit 1+g' 3builddistro.tmp1 > 3builddistro.tmp2
+  sed '/^\t..\/support\/mk_iso.sh --uefi.*/a\\techo "Running ..\/support\/mk_iso.sh --without-uefi"' 3builddistro.tmp2 > 3builddistro.tmp3
+  sed '/echo "Running ..\/support\/mk_iso.sh --without-uefi"/a\\t..\/support\/mk_iso.sh --without-uefi || exit 1' 3builddistro.tmp3 > 3builddistro
+  rm -f 3builddistro.tmp1 3builddistro.tmp2 3builddistro.tmp3
+  chmod +x 3builddistro
+fi
+if [ ! -f .3builddistro.runsuccesfull ]; then
+  rm -Rf sandbox3 woof-output-$BUILD-19.03
+  ./3builddistro
+  cp -f woof-output-$BUILD-19.03/*.sfs ../run_woof/
+  cp -f woof-output-$BUILD-19.03/*[0-9][\.]iso ../run_woof/
+  touch .3builddistro.runsuccesfull
+fi
