@@ -38,7 +38,10 @@ if [ ! -f DISTRO_PKGS_SPECS-ubuntu-bionic.orig ]; then
   rm -f DISTRO_PKGS_SPECS-ubuntu-bionic.tmp1 DISTRO_PKGS_SPECS-ubuntu-bionic.tmp2 DISTRO_PKGS_SPECS-ubuntu-bionic.tmp3
 fi
 if [ ! -f ../local-repositories/x86/packages-deb-bionic/libedit2_3.1-20170329-1_i386.deb ]; then
-  cp ../tmp/libedit2_3.1-20170329-1_i386.deb ../local-repositories/x86/packages-deb-bionic/
+  cd ../tmp/
+  wget http://nl.archive.ubuntu.com/ubuntu/pool/main/libe/libedit/libedit2_3.1-20170329-1_i386.deb
+  mv libedit2_3.1-20170329-1_i386.deb ../local-repositories/x86/packages-deb-bionic/
+  cd ../woof-out_x86_x86_ubuntu_upupbb
 fi
 #if [ ! -f .1download.runsuccesfull ]; then
 #  ./1download
