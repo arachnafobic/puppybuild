@@ -1,0 +1,6 @@
+General :
+  - Add a way to specify local copies off the base iso and devx sfs files which skips downloading them.
+
+ictm-upupbb :
+  - Process all custom files
+  - relink /etc/localtime
