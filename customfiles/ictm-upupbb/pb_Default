@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<pinboard>
+  <backdrop style="Stretched">/usr/share/backgrounds/default.png</backdrop>
+  <icon x="48" y="128" label="Home">/root</icon>
+  <icon x="336" y="128" label="WebManager" args="--no-sandbox --start-maximized &quot;https://wm.ictmaatwerk.com/&quot;">/usr/bin/chromium-browser</icon>
+  <icon x="464" y="128" label="Battery Test" args="--no-sandbox --start-maximized &quot;https://wm.ictmaatwerk.com/battery-test&quot;">/usr/bin/chromium-browser</icon>
+</pinboard>

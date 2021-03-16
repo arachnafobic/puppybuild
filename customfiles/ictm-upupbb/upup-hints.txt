@@ -1,0 +1,3 @@
+Welcome to the 32-bit BionicPup32 (UPupBB) PuppyLinux build.
+ 
+This image has been adjusted to fit ICTM specific needs.
