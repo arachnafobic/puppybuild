@@ -13,14 +13,23 @@ fi
 cd run_woof
 cp -f ../../../customfiles/$BUILD/run_woof.conf .
 if [ ! -f upupbb_19.03.iso ]; then
-  echo "Downloading baseimage"
-  wget -O upupbb_19.03.iso http://distro.ibiblio.org/puppylinux/puppy-bionic/bionicpup32/bionicpup32-8.0-uefi.iso
+  if [ ! -z $BUILD_ISO ]; then
+    echo "Using local $BUILD_ISO as baseimage"
+    cp $BUILD_ISO upupbb_19.03.iso
+  else
+    echo "Downloading baseimage"
+    wget -O upupbb_19.03.iso http://distro.ibiblio.org/puppylinux/puppy-bionic/bionicpup32/bionicpup32-8.0-uefi.iso
+  fi
 fi
 if [ ! -f devx_upupbb_19.03.sfs ]; then
-  echo "Downloading devx"
-  wget http://distro.ibiblio.org/puppylinux/puppy-bionic/bionicpup32/devx_upupbb_19.03.sfs
+  if [ ! -z $BUILD_DEVX ]; then
+    echo "Using local $BUILD_DEVX as base devx"
+    cp $BUILD_DEVX devx_upupbb_19.03.sfs
+  else
+    echo "Downloading devx"
+    wget http://distro.ibiblio.org/puppylinux/puppy-bionic/bionicpup32/devx_upupbb_19.03.sfs
+  fi
 fi
-
 if [ ! -f run_woof.backup ]; then
   mv run_woof run_woof.backup
   sed 's+/bin/bash -i+/bin/bash -i /root/share/tmp/ictm-upupbb-chroot.sh+g' run_woof.backup > run_woof
