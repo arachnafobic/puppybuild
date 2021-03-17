@@ -49,6 +49,23 @@ if [ ! -f .2createpackages.runsuccesfull ]; then
   touch .2createpackages.runsuccesfull
 fi
 
+cp -f ../tmp/ubb-default.png packages-$BUILD/z_upupbbfix/usr/share/backgrounds/
+cp -f ../tmp/upup-hints.txt packages-$BUILD/z_upupbbfix/opt/upup/
+cp -f ../tmp/globicons packages-$BUILD/z_upupbbfix/root/.config/rox.sourceforge.net/ROX-Filer/
+cp -f ../tmp/pb_Default packages-$BUILD/z_upupbbfix/root/.config/rox.sourceforge.net/ROX-Filer/
+cp -f ../tmp/defaultbrowser rootfs-skeleton/usr/local/bin/
+
+if [ ! -f .sed_done ]; then
+  sed -i 's+^defaultbrowser=light+defaultbrowser=+g' _00build.conf
+  sed -i '/^which $CURRENTWM && exec $CURRENTWM/i # Activate ICTM Desktop\nrox --pinboard Default\n' rootfs-skeleton/root/.xinitrc
+  touch .sed_done
+fi
+
+cd rootfs-skeleton/etc
+rm -f localtime
+ln -s /usr/share/zoneinfo/Europe/Amsterdam localtime
+cd ../..
+
 if [ ! -f support/mk_iso.sh.orig ]; then
   mv support/mk_iso.sh support/mk_iso.sh.orig
 fi
