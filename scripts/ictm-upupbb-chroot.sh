@@ -54,6 +54,7 @@ cp -f ../tmp/upup-hints.txt packages-$BUILD/z_upupbbfix/opt/upup/
 cp -f ../tmp/globicons packages-$BUILD/z_upupbbfix/root/.config/rox.sourceforge.net/ROX-Filer/
 cp -f ../tmp/pb_Default packages-$BUILD/z_upupbbfix/root/.config/rox.sourceforge.net/ROX-Filer/
 cp -f ../tmp/defaultbrowser rootfs-skeleton/usr/local/bin/
+cp -f ../tmp/delayedrun rootfs-skeleton/usr/sbin/
 
 if [ ! -f .sed_done ]; then
   sed -i 's+^defaultbrowser=light+defaultbrowser=+g' _00build.conf
